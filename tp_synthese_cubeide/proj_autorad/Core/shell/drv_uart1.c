@@ -10,9 +10,13 @@
 #include "usart.h"
 #include "gpio.h"
 
+
+
 uint8_t drv_uart1_receive(char * pData, uint16_t size)
 {
 	HAL_UART_Receive(&huart2, (uint8_t*)(pData), size, HAL_MAX_DELAY);
+
+	// prendre le sémaphore
 
 	return 0;	// Life's too short for error management
 }
@@ -23,3 +27,7 @@ uint8_t drv_uart1_transmit(const char * pData, uint16_t size)
 
 	return 0;	// Srsly, don't do that kids
 }
+
+// ajouter fonction callback(c'est à moi de nommer cette callback)   non crmqui va donner le sémaphore (semaphoreGive)
+//callback a def ici
+//ausssi une fonction init pour créer le seamphre

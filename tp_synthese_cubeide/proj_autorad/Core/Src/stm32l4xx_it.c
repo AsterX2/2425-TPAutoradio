@@ -22,6 +22,7 @@
 #include "stm32l4xx_it.h"
 #include "FreeRTOS.h"
 #include "task.h"
+#include "semphr.h"
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
 /* USER CODE END Includes */
@@ -59,7 +60,7 @@
 /* External variables --------------------------------------------------------*/
 extern UART_HandleTypeDef huart2;
 extern uint8_t rx_byte;
-
+extern SemaphoreHandle_t sem1;
 /* USER CODE BEGIN EV */
 
 /* USER CODE END EV */
@@ -199,16 +200,18 @@ void USART2_IRQHandler(void)
 }
 
 /* USER CODE BEGIN 1 */
-
+// TODO a bouger dans le main
 void HAL_UART_RxCpltCallback(UART_HandleTypeDef *huart) {
 
+	// on appelle simplement la fonction callback du drv_uart
 
+	//..
 
-	xSemaphoreGive(sem1);
+	//xSemaphoreGiveFromISR(sem1,...);
 
-
-	// Relancer la réception pour le prochain octet
-	HAL_UART_Receive_IT(&huart2, &rx_byte, 1);
+	//..
+	// Relancer la réception pour le prochain octet <= pas la peine
+	//HAL_UART_Receive_IT(&huart2, &rx_byte, 1);
 
 }
 

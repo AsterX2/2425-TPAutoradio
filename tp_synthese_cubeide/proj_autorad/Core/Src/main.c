@@ -54,6 +54,9 @@ TaskHandle_t h_task_shell;
 h_shell_t h_sh;
 
 uint8_t rx_byte;
+
+
+
 /* USER CODE END PV */
 
 /* Private function prototypes -----------------------------------------------*/
@@ -72,7 +75,7 @@ int __io_putchar(int ch)
 void tache_shell()
 {
 
-	xSemaphoreTake(sem1, portMAX_DELAY);
+	//xSemaphoreTake(sem1, portMAX_DELAY);
 
 	h_sh.drv.receive = drv_uart1_receive;
 	h_sh.drv.transmit = drv_uart1_transmit;
@@ -85,6 +88,7 @@ void tache_shell()
 
 /* Private user code ---------------------------------------------------------*/
 /* USER CODE BEGIN 0 */
+
 
 /* USER CODE END 0 */
 
@@ -120,7 +124,7 @@ int main(void)
 	MX_USART2_UART_Init();
 	/* USER CODE BEGIN 2 */
 	xTaskCreate(tache_shell, "Shell", TASK_SHELL_STACK_SIZE, NULL, TASK_SHELL_PRIORITY, &h_task_shell);
-	sem1 = xSemaphoreCreateBinary();
+
 
 	vTaskDelay(10);
 
