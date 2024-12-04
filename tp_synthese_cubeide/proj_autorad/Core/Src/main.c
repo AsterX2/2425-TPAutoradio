@@ -72,18 +72,46 @@ int __io_putchar(int ch)
 
 
 
-void tache_shell()
+void tache_shell(void * unused)
 {
+	//xSemaphoreTake(sem1, portMAX_DELAY); artefact question a) pour prendre le semaphore sans interruption
 
-	//xSemaphoreTake(sem1, portMAX_DELAY);
+	printf("tache Shell\r\n");
 
 	h_sh.drv.receive = drv_uart1_receive;
 	h_sh.drv.transmit = drv_uart1_transmit;
 	shell_init(&h_sh);
+
+
 	shell_run(&h_sh);
 
 
 }
+
+
+
+
+
+
+//// TODO a bouger dans le main
+//void HAL_UART_RxCpltCallback(UART_HandleTypeDef *huart) {
+//
+//	// on appelle simplement la fonction callback du drv_uart
+//	//drv_uart_callback_give(semain);// création et give du sémaphore
+//
+//
+//	//..
+//	BaseType_t higher_priority_task_woken = pdFALSE;
+//	xSemaphoreGiveFromISR(semain, &higher_priority_task_woken);
+//
+//
+//	portYIELD_FROM_ISR(higher_priority_task_woken);
+//	//..
+//	// Relancer la réception pour le prochain octet <= pas la peine
+//	//HAL_UART_Receive_IT(&huart2, &rx_byte, 1);
+//
+//}
+
 /* USER CODE END PFP */
 
 /* Private user code ---------------------------------------------------------*/
@@ -123,10 +151,14 @@ int main(void)
 	MX_GPIO_Init();
 	MX_USART2_UART_Init();
 	/* USER CODE BEGIN 2 */
+
+	//sem_init() déclarer dans drv_uart1.c
+
+
 	xTaskCreate(tache_shell, "Shell", TASK_SHELL_STACK_SIZE, NULL, TASK_SHELL_PRIORITY, &h_task_shell);
 
 
-	vTaskDelay(10);
+	//vTaskDelay(10);
 
 	vTaskStartScheduler();
 	/* USER CODE END 2 */

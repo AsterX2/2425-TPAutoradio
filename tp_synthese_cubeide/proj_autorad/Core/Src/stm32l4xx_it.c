@@ -200,19 +200,19 @@ void USART2_IRQHandler(void)
 }
 
 /* USER CODE BEGIN 1 */
-// TODO a bouger dans le main
-void HAL_UART_RxCpltCallback(UART_HandleTypeDef *huart) {
-
-	// on appelle simplement la fonction callback du drv_uart
-
-	//..
-
-	//xSemaphoreGiveFromISR(sem1,...);
-
-	//..
-	// Relancer la réception pour le prochain octet <= pas la peine
-	//HAL_UART_Receive_IT(&huart2, &rx_byte, 1);
-
-}
+//// TODO a bouger dans le main
+//void HAL_UART_RxCpltCallback(UART_HandleTypeDef *huart) {
+//
+//	// on appelle simplement la fonction callback du drv_uart
+//	drv_uart_callback_give(semain)
+//	//..
+//
+//	//xSemaphoreGiveFromISR(sem1,...);
+//
+//	//..
+//	// Relancer la réception pour le prochain octet <= pas la peine
+//	//HAL_UART_Receive_IT(&huart2, &rx_byte, 1);
+//
+//}
 
 /* USER CODE END 1 */

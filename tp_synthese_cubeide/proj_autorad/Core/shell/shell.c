@@ -8,6 +8,12 @@
 #include "shell.h"
 
 #include <stdio.h>
+#include "usart.h"
+
+#include "FreeRTOS.h"
+#include "task.h"
+#include "semphr.h"
+
 
 static int sh_help(h_shell_t * h_shell, int argc, char ** argv) {
 	int i;
@@ -22,6 +28,10 @@ static int sh_help(h_shell_t * h_shell, int argc, char ** argv) {
 
 void shell_init(h_shell_t * h_shell) {
 	int size = 0;
+
+	// création du sémaphore avec drv_sem_init --  sans handle
+	drv_sem_init();
+
 
 	h_shell->func_list_size = 0;
 
@@ -126,3 +136,26 @@ int shell_run(h_shell_t * h_shell) {
 	}
 	return 0;
 }
+
+// TODO a bouger dans le main
+void HAL_UART_RxCpltCallback(UART_HandleTypeDef *huart) {
+
+	// on appelle simplement la fonction callback du drv_uart
+	give_sem_uart();
+
+	// <<<<<<<<<<remplacer par give_sem_uart >>>>>>>>>>>>>>>>>>
+	/*BaseType_t higher_priority_task_woken = pdFALSE;
+
+	xSemaphoreGiveFromISR(semain, &higher_priority_task_woken);
+
+
+	portYIELD_FROM_ISR(higher_priority_task_woken);*/
+	// <<<<<<<<<<remplacer par give_sem_uart >>>>>>>>>>>>>>>>>>
+
+
+	//..
+	// Relancer la réception pour le prochain octet <= pas la peine
+	//HAL_UART_Receive_IT(&huart2, &rx_byte, 1);
+
+}
+
