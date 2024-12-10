@@ -11,30 +11,33 @@
 #include <stdint.h>
 
 
-#define MCP23S17_CONTROL_ADDR 0b000
-#define MCP23S17_IODIRA  0x00
-#define MCP23S17_IODIRB  0x01
-#define MCP23S17_OLATA   0x14
-#define MCP23S17_OLATB 	 0x15
+#define REG_CONTROL_ADDR 0b000 //if a0 a1 a2 to GND
+//logique inverse
 
-#define MCP23S17_ALL_ON	 0x00
-#define MCP23S17_ALL_OFF 0xFF
+//adress of each registers
+#define REG_IODIRA  0x00 //address of I/O configuration register (configuration bits (8bits) GPA) : port direction as input or output
+#define REG_IODIRB  0x01 // address of I/O configuration register (configuration bits (8bits) GPB): port direction input or output
+#define REG_OLATA   0x14 // address of register read latch port A
+#define REG_OLATB 	0x15 // address of register read latch port B
+
+//all pins as input or output
+#define REG_ALL_ON 0x00
+#define REG_ALL_OFF 0xFF
 
 
 // Builds the VU-Metre control byte
-#define MCP23S17_CONTROL_BYTE(adress, RW)\
-		((0b0100 << 4) | (adress & 0b111 << 1) | RW)
+#define MCP_CONTROL_BYTE(adress, RW) ((0b0100 << 4) | (adress & 0b111 << 1) | RW)
 
 
 
 
-void MCP23S17_WriteRegister(uint8_t reg, uint8_t data);
-void MCP23S17_Init(void);
-void MCP23S17_Set_LED_id(uint8_t led);
-void MCP23S17_Toggle_LED_id(uint8_t led);
-void MCP23S17_Set_LEDs(uint16_t leds);
-void MCP23S17_Update_LEDs(void);
-void MCP23S17_level_R(int level);
-void MCP23S17_level_L(int level);
+void WriteRegister(uint8_t reg, uint8_t data);
+void xpdr_Init(void);
+void Set_LED_id(uint8_t led);
+void Toggle_LED_id(uint8_t led);
+void Set_LEDs(uint16_t leds);
+void Update_LEDs(void);
+void level_R(int level);
+void level_L(int level);
 
 #endif /* DRIVERS_DRV_MCP_DRV_MCP_H_ */

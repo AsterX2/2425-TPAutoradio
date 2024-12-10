@@ -24,6 +24,8 @@ C_DEPS :=
 SUBDIRS := \
 Core/Src \
 Core/Startup \
+Core/drivers/drv_MCP \
+Core/drivers/drv_codec \
 Core/shell \
 Drivers/STM32L4xx_HAL_Driver/Src \
 Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS \
