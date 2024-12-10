@@ -24,7 +24,11 @@
 #define REG_ALL_ON 0x00
 #define REG_ALL_OFF 0xFF
 
-
+typedef enum
+{
+	VU_WRITE = 0U,
+	VU_READ
+} MCP23S17_Mode;
 // Builds the VU-Metre control byte
 #define MCP_CONTROL_BYTE(adress, RW) ((0b0100 << 4) | (adress & 0b111 << 1) | RW)
 
