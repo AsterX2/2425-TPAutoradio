@@ -13,6 +13,7 @@
 #include "FreeRTOS.h"
 #include "task.h"
 #include "semphr.h"
+//#include "drv_MCP.h"
 
 
 static int sh_help(h_shell_t * h_shell, int argc, char ** argv) {
@@ -42,6 +43,7 @@ void shell_init(h_shell_t * h_shell) {
 	h_shell->drv.transmit(h_shell->print_buffer, size);
 
 	shell_add(h_shell, 'h', sh_help, "Help");
+
 }
 
 int shell_add(h_shell_t * h_shell, char c, shell_func_pointer_t pfunc, char * description) {

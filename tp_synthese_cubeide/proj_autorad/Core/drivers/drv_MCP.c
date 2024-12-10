@@ -7,7 +7,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include "drv_MCP.h"
-//#include "main.h"
+
 #include "spi.h"
 
 typedef struct {
@@ -59,46 +59,45 @@ void WriteRegister(uint8_t reg, uint8_t data)
 
 }
 
-
 void Update_LEDs(void){
 
-	MCP_WriteRegister(MCP_OLATA, hMCP.GPA);
-	MCP_WriteRegister(MCP_OLATB, hMCP.GPB);
+	WriteRegister(MCP_OLATA, hMCP.GPA);
+	WriteRegister(MCP_OLATB, hMCP.GPB);
 
 }
 void Set_LED_id(uint8_t led){
 	if (led > 7)
 	{
-		hMCP23S17.GPB = ~(1 << led%8);
-		hMCP23S17.GPA = 0xFF; // All LEDs on GPIOA OFF
+		hMCP.GPB = ~(1 << led%8);
+		hMCP.GPA = 0xFF; // All LEDs on GPIOA OFF
 	}
 	else
 	{
-		hMCP23S17.GPA = ~(1 << led);
-		hMCP23S17.GPB = 0xFF; // All LEDs on GPIOB OFF
+		hMCP.GPA = ~(1 << led);
+		hMCP.GPB = 0xFF; // All LEDs on GPIOB OFF
 	}
 
-	MCP23S17_Update_LEDs();
+	Update_LEDs();
 }
 
 void Toggle_LED_id(uint8_t led){
 	if (led > 7)
 	{
-		hMCP23S17.GPB = (hMCP23S17.GPB & ~(1 << led%8)) | (~hMCP23S17.GPB & (1 << led%8));
+		hMCP.GPB = (hMCP.GPB & ~(1 << led%8)) | (~hMCP.GPB & (1 << led%8));
 	}
 	else
 	{
-		hMCP23S17.GPA = (hMCP23S17.GPA & ~(1 << led)) | (~hMCP23S17.GPA & (1 << led));
+		hMCP.GPA = (hMCP.GPA & ~(1 << led)) | (~hMCP.GPA & (1 << led));
 	}
 
-	MCP23S17_Update_LEDs();
+	Update_LEDs();
 }
 void Set_LEDs(uint16_t leds){
 
-	hMCP23S17.GPB = (0xFF00 & leds) >> 8;
-	hMCP23S17.GPA = 0xFF & leds;
+	hMCP.GPB = (0xFF00 & leds) >> 8;
+	hMCP.GPA = 0xFF & leds;
 
-	MCP23S17_Update_LEDs();
+	Update_LEDs();
 }
 
 
@@ -117,13 +116,13 @@ void xpdr_Init(void){
 	HAL_GPIO_WritePin(VU_nCS_GPIO_Port, VU_nCS_Pin, GPIO_PIN_SET);
 
 	// Set all GPIOA and GPIOB pins as outputs
-	MCP_WriteRegister(MCP23S17_IODIRA, MCP23S17_ALL_ON); // GPA as output
-	MCP_WriteRegister(MCP23S17_IODIRB, MCP23S17_ALL_ON); // GPB as output
+	WriteRegister(MCP_IODIRA, MCP_ALL_ON); // GPA as output
+	WriteRegister(MCP_IODIRB, MCP_ALL_ON); // GPB as output
 
 	hMCP.GPA = 0xFF;	// All LEDs on GPIOA OFF
 	hMCP.GPB = 0xFF;	// All LEDs on GPIOB OFF
 
-	MCP_Update_LEDs();
+	Update_LEDs();
 
 }
 
@@ -132,16 +131,16 @@ void xpdr_Init(void){
 void level_R(int level){
 	if (level <= 100)
 	{
-		hMCP23S17.GPA = 0xFF & (0x00FF << (int)(8*level/100));
+		hMCP.GPA = 0xFF & (0x00FF << (int)(8*level/100));
 
-		MCP23S17_Update_LEDs();
+		MCP_Update_LEDs();
 	}
 }
 void level_L(int level){
 	if (level <= 100)
 	{
-		hMCP23S17.GPB = 0xFF & (0x00FF << (int)(8*level/100));
+		hMCP.GPB = 0xFF & (0x00FF << (int)(8*level/100));
 
-		MCP23S17_Update_LEDs();
+		MCP_Update_LEDs();
 	}
 }

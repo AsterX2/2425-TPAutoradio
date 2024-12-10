@@ -1,0 +1,8 @@
+../Core/drivers/drv_MCP.c:21:6:WriteRegister	24	static
+../Core/drivers/drv_MCP.c:62:6:Update_LEDs	8	static
+../Core/drivers/drv_MCP.c:68:6:Set_LED_id	16	static
+../Core/drivers/drv_MCP.c:83:6:Toggle_LED_id	16	static
+../Core/drivers/drv_MCP.c:95:6:Set_LEDs	16	static
+../Core/drivers/drv_MCP.c:106:6:xpdr_Init	8	static
+../Core/drivers/drv_MCP.c:131:6:level_R	16	static
+../Core/drivers/drv_MCP.c:139:6:level_L	16	static

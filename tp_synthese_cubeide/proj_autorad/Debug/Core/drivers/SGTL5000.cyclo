@@ -1,0 +1,5 @@
+../Drivers/CMSIS/Include/core_cm4.h:1933:34:__NVIC_SystemReset	1
+../Core/drivers/SGTL5000.c:26:6:SGTL5000_ErrorHandler	0
+../Core/drivers/SGTL5000.c:34:6:SGTL5000_i2c_ReadRegister	2
+../Core/drivers/SGTL5000.c:46:6:SGTL5000_i2c_WriteRegister	5
+../Core/drivers/SGTL5000.c:87:6:SGTL5000_Init	2

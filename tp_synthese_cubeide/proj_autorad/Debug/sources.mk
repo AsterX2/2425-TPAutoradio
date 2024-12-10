@@ -24,7 +24,7 @@ C_DEPS :=
 SUBDIRS := \
 Core/Src \
 Core/Startup \
-Core/drivers/drv_MCP \
+Core/drivers \
 Core/drivers/drv_codec \
 Core/shell \
 Drivers/STM32L4xx_HAL_Driver/Src \

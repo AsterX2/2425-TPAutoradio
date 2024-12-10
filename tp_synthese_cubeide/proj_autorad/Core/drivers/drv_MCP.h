@@ -15,14 +15,14 @@
 //logique inverse
 
 //adress of each registers
-#define REG_IODIRA  0x00 //address of I/O configuration register (configuration bits (8bits) GPA) : port direction as input or output
-#define REG_IODIRB  0x01 // address of I/O configuration register (configuration bits (8bits) GPB): port direction input or output
-#define REG_OLATA   0x14 // address of register read latch port A
-#define REG_OLATB 	0x15 // address of register read latch port B
+#define MCP_IODIRA  0x00 //address of I/O configuration register (configuration bits (8bits) GPA) : port direction as input or output
+#define MCP_IODIRB  0x01 // address of I/O configuration register (configuration bits (8bits) GPB): port direction input or output
+#define MCP_OLATA   0x14 // address of register read latch port A
+#define MCP_OLATB 	0x15 // address of register read latch port B
 
 //all pins as input or output
-#define REG_ALL_ON 0x00
-#define REG_ALL_OFF 0xFF
+#define MCP_ALL_ON 0x00
+#define MCP_ALL_OFF 0xFF
 
 typedef enum
 {
@@ -36,6 +36,8 @@ typedef enum
 
 
 void WriteRegister(uint8_t reg, uint8_t data);
+
+
 void xpdr_Init(void);
 void Set_LED_id(uint8_t led);
 void Toggle_LED_id(uint8_t led);
