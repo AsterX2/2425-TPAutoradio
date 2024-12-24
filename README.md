@@ -160,17 +160,7 @@ Pins utilisés pour l’I2C:
 
 Ces broches correspondent à l'instance 2 i2c, I2C2 de la nucleo
 
-### 3.2 Configuration du CODEC par l’I2C
 
-### 3.3 Signaux I2S
-
-### 3.4 Génération de signal audio
-
-### 3.5 Bypass numérique
-
-
-
-## 4 Visualisation
 
 
 
