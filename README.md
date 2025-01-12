@@ -12,7 +12,7 @@
 
 2. Sur le STM32, le SPI  utilisé est le suivant SPI3 avec SPI3_MOSI sur PB5, SPI3_MISO sur PC11.
 3. Les paramètres dans cubeIDE pour la communication SPI sont les suivants : 
-   ![image-20250112204852008](/home/vincent/Téléchargements/assets/image-20250112204852008.png)
+   ![image-20250112204852008](/assets/config_spi.png)
 
 Nous allons voir comment utiliser ce GPIO Expander.
 
