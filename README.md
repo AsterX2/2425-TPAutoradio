@@ -1,4 +1,5 @@
 # 2425-TPAutoradio
+
  TP de Synthèse – Autoradio ESE
 
 
@@ -6,6 +7,14 @@
 ## 2 Le GPIO Expander et le VU-Metre
 
 ### 2.1 Configuration
+
+1. Le GPIO Expander utilisé est le MCP23017
+
+2. Sur le STM32, le SPI  utilisé est le suivant SPI3 avec SPI3_MOSI sur PB5, SPI3_MISO sur PC11.
+3. Les paramètres dans cubeIDE pour la communication SPI sont les suivants : 
+   ![image-20250112204852008](/home/vincent/Téléchargements/assets/image-20250112204852008.png)
+
+Nous allons voir comment utiliser ce GPIO Expander.
 
 écrire sur la broche GPIO pour allumer la LED : (les LEDs sont généralement connectées en logique inversée, donc un 0 allume la LED).
 
@@ -123,7 +132,7 @@ Voici le control byte formé :
 - `& 0b111` masque l'adresse pour ne garder que les 3 bits de poids faible (les bits les moins significatifs).
 - `<< 1` déplace le résultat de 1 bit vers la gauche pour le placer correctement dans le byte de contrôle.
 
-![image-20241210004611354](/home/vincent/Documents/ese_3a/autoradio/2425-TPAutoradio/assets/image-20241210004611354.png)
+![image-20241210004611354](/home/vincent/Téléchargements/assets/image-20241210004611354.png)
 
 
 
@@ -194,7 +203,8 @@ void WriteRegister(uint8_t reg, uint8_t data)
 		Error_Handler(); // Handle the error
 		return; // Prevent further execution
 	}
-
+car la pointe de la branche courante est derrière
+astuce: son homologue distant. Intégrez les changements distants (par exemple 'git pull ...
 
 	// UP chip select to 1
 	HAL_GPIO_WritePin(VU_nCS_GPIO_Port, VU_nCS_Pin, GPIO_PIN_SET);
@@ -304,20 +314,68 @@ Le CODEC utilisant deux protocoles de communication avec l'I2C pour la configura
 PB10 et PB11 sont la configuration  de base de l'I2C2.
 Une fois la configuration de l'I2C laissée par défaut, on s'attaque à celle de l'I2S.
 
-Ce protocole ne se trouve non plus dans connectivity mais dans multimedia. On met le SAI A en Master et SAI B en Synchronous Slave et on utilise le protocole I2S pour ces deux là.
-On active les interruptions pour pouvoir configurer le DMA de SAI A et B avec le mode circulaire.
-On part ensuite activer l'horloge MCLK et on n'oublie pas d'alimenter notre CODEC avec une horloge, sans quoi la communication I2C ne fonctionnera pas.
+3. Ce protocole ne se trouve non plus dans connectivity mais dans multimedia. On met le SAI A en Master et SAI B en Synchronous Slave et on utilise le protocole I2S pour ces deux là.
+   On active les interruptions pour pouvoir configurer le DMA de SAI A et B avec le mode circulaire.
+   On part ensuite activer l'horloge MCLK et on n'oublie pas d'alimenter notre CODEC avec une horloge, sans quoi la communication I2C ne fonctionnera pas.
 
-## 3 Le CODEC Audio SGTL5000
 
-### 3.1 Configuration préalables
 
-Pins utilisés pour l’I2C:
+### 3.2 Configuration du codec par l'I2C
 
-- I2C_SCL: PB10
-- I2C_SDA: PB11
 
-Ces broches correspondent à l'instance 2 i2c, I2C2 de la nucleo
+
+2. On récupère la valeur par l'I2C contenue dans le registre CHIP_ID. C'est bien la bonne valeur attendue.
+
+   ![image-20250112170620420](/home/vincent/Téléchargements/assets/image-20250112170620420-1736711935746-2.png)
+
+   
+
+   
+
+5. Le tableau donnant la valeurs à assigné dans les registres est le suivant :
+
+   1. | Nom du Registre    | ADR du registre | Valeur à assigner |
+      | ------------------ | --------------- | ----------------- |
+      | CHIP_ANA_POWER     | 0x0030 v        | 0x6AFF v          |
+      | CHIP_LINREG_CTRL   | 0x0026 v        | 0x006C v          |
+      | CHIP_REF_CTRL      | 0x0028 v        | 0x009C v          |
+      | CHIP_LINE_OUT_CTRL | 0x002C v        | 0x031E            |
+      | CHIP_SHORT_CTRL    | 0x003C v        | 0x1106 v          |
+      | CHIP_ANA_CTRL      | 0x0024 v        | 0x0004            |
+      | CHIP_DIG_POWER     | 0x0002 v        | 0x0073 v          |
+      | CHIP_LINE_OUT_VOL  | 0x002E v        | 0x1111            |
+      | CHIP_CLK_CTRL      | 0x0004 v        | 0x0004            |
+      | CHIP_I2S_CTRL      | 0x0006 v        | 0x0130            |
+      | CHIP_ADCDAC_CTRL   | 0x000E v        | 0x0000            |
+      | CHIP_DAC_VOL       | 0x0010 v        | 0x3C3C v          |
+
+
+
+
+
+
+
+La documentation nous dit que  l'on doit écrire les valeurs suivantes dans les registres  **CHIP_LINREG_CTRL** et **CHIP_ANA_POWER**
+
+// NOTE: The next modify call is only needed if both VDDA and
+// VDDIO are greater than 3.1 V
+// Configure the charge pump to use the VDDIO rail (set bit 5 and
+bit 6)
+Write CHIP_LINREG_CTRL 0x006C
+
+
+
+//------------Power up Inputs/Outputs/Digital Blocks---------
+// Power up LINEOUT, HP, ADC, DAC
+Write CHIP_ANA_POWER **0x6AFF**
+// Power up desired digital blocks
+// I2S_IN (bit 0), I2S_OUT (bit 1), DAP (bit 4), DAC (bit 5),
+// ADC (bit 6) are powered on
+Write CHIP_DIG_POWER **0x0073**
+
+On appelle l'init dans le main pour configurer ces registres.
+
+
 
 
 
