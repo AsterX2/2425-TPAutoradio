@@ -10,7 +10,7 @@ Karim JERJ
 
 ### 2.1 Configuration
 
-1. Le GPIO Expander utilisé est le MCP23017
+1. Le GPIO Expander utilisé est le MCP23017-E/SO
 
 2. Sur le STM32, le SPI  utilisé est le suivant SPI3 avec SPI3_MOSI sur PB5, SPI3_MISO sur PC11.
 3. Les paramètres dans cubeIDE pour la communication SPI sont les suivants : 
