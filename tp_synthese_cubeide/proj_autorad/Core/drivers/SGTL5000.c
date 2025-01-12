@@ -12,7 +12,7 @@
 #include <stdlib.h>
 
 #define LOGS 0
-#define DEBUG 0
+#define DEBUG 1
 
 typedef struct {
 	I2C_HandleTypeDef * hi2c;
@@ -91,6 +91,7 @@ void SGTL5000_Init(void)
 	uint8_t chip_id_data[2];
 	SGTL5000_i2c_ReadRegister(SGTL5000_CHIP_ID, chip_id_data, SGTL5000_MEM_SIZE);
 	hSGTL5000.chip_id = (chip_id_data[0] << 8) | chip_id_data[1];
+	printf("Valeur CHIP_ID (16 bits) : 0x%04X\n",hSGTL5000.chip_id);
 
 	if (hSGTL5000.chip_id != 0xA011) { // Example CHIP_ID, replace with actual expected ID
 		SGTL5000_ErrorHandler("Invalid CHIP_ID detected");
@@ -108,13 +109,17 @@ void SGTL5000_Init(void)
 #endif
 
 
-	mask = (1 << 5) | (1 << 6);
+	//mask = (1 << 5) | (1 << 6);//0x0060
+	//mask = (1 << 6) | (1 << 5) | (4); //0x0064
+	mask = (1 << 6) | (1 << 5) | (1 << 3) | (1 << 2); // 0x006C
 	SGTL5000_i2c_WriteRegister(SGTL5000_CHIP_LINREG_CTRL, mask);
 #if (DEBUG)
 	printf("SGTL5000_CHIP_LINREG_CTRL set as: 0x%04X\r\n", mask);
 #endif
 
 
+	// Définir le masque pour 0x009C
+	mask = (1 << 7) | (1 << 4) | (1 << 3) | (1 << 2); // 0x009C
 	SGTL5000_i2c_WriteRegister(SGTL5000_CHIP_REF_CTRL, mask);
 #if (DEBUG)
 	printf("SGTL5000_CHIP_REF_CTRL set as: 0x%04X\r\n", mask);
