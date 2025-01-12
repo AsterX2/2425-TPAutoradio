@@ -131,7 +131,6 @@ void tache_shell(void * unused)
 
 
 
-
 void GenerateTriangleWave(uint16_t* buffer, uint16_t length, uint16_t amplitude) {
     // Divisez la longueur par 2 pour une montée et une descente complètes
     uint16_t halfLength = length/2;
@@ -226,6 +225,11 @@ int main(void)
 	/* USER CODE BEGIN 2 */
 	__HAL_SAI_ENABLE(&hsai_BlockA2);
 	__HAL_SAI_ENABLE(&hsai_BlockB2);
+
+
+	__HAL_RCC_SAI2_CLK_ENABLE();
+	__HAL_RCC_DMA2_CLK_ENABLE();
+	SGTL5000_Init();
 
 
 	GenerateTriangleWave(triangleWave, TRIANGLE_SAMPLES, 0X7FFF);
