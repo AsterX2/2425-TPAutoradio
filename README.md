@@ -326,7 +326,7 @@ Une fois la configuration de l'I2C laissée par défaut, on s'attaque à celle d
 
 2. On récupère la valeur par l'I2C contenue dans le registre CHIP_ID. C'est bien la bonne valeur attendue.
 
-   ![image-20250112170620420](/home/vincent/Téléchargements/assets/image-20250112170620420-1736711935746-2.png)
+   ![image-20250112170620420](assets/chip_id.png))
 
    
 
