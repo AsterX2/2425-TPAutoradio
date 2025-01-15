@@ -99,14 +99,6 @@ void SGTL5000_Init(void)
 
 	uint16_t mask;
 
-	/* Chip Powerup and Supply Configurations */
-
-	mask = (1 << 12) | (1 << 13);
-	//mask = 0b0111001011111111;
-	SGTL5000_i2c_WriteRegister(SGTL5000_CHIP_ANA_POWER, mask);
-#if (DEBUG)
-	printf("SGTL5000_CHIP_ANA_POWER set as: 0x%04X\r\n", mask);
-#endif
 
 
 	//mask = (1 << 5) | (1 << 6);//0x0060
