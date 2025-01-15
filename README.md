@@ -2,8 +2,8 @@
 
  TP de Synthèse – Autoradio ESE
  
-Vincent LAKME
-Karim JERJ
+Vincent LAKHMECHE
+Karim JERJOUB
 
 
 ## 2 Le GPIO Expander et le VU-Metre
