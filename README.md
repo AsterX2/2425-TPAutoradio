@@ -324,7 +324,8 @@ Une fois la configuration de l'I2C laissée par défaut, on s'attaque à celle d
 
 ### 3.2 Configuration du codec par l'I2C
 
-
+1. Le signal MCL est observé sur la figure suivante à l'oscilloscope 
+![mclk](assets/signal mclk_scope_0.png))
 
 2. On récupère la valeur par l'I2C contenue dans le registre CHIP_ID. C'est bien la bonne valeur attendue.
 
@@ -341,14 +342,14 @@ Une fois la configuration de l'I2C laissée par défaut, on s'attaque à celle d
       | CHIP_ANA_POWER     | 0x0030 v        | 0x6AFF v          |
       | CHIP_LINREG_CTRL   | 0x0026 v        | 0x006C v          |
       | CHIP_REF_CTRL      | 0x0028 v        | 0x009C v          |
-      | CHIP_LINE_OUT_CTRL | 0x002C v        | 0x031E            |
+      | CHIP_LINE_OUT_CTRL | 0x002C v        | 0x031E v           |
       | CHIP_SHORT_CTRL    | 0x003C v        | 0x1106 v          |
-      | CHIP_ANA_CTRL      | 0x0024 v        | 0x0004            |
+      | CHIP_ANA_CTRL      | 0x0024 v        | 0x0004 v           |
       | CHIP_DIG_POWER     | 0x0002 v        | 0x0073 v          |
-      | CHIP_LINE_OUT_VOL  | 0x002E v        | 0x1111            |
-      | CHIP_CLK_CTRL      | 0x0004 v        | 0x0004            |
-      | CHIP_I2S_CTRL      | 0x0006 v        | 0x0130            |
-      | CHIP_ADCDAC_CTRL   | 0x000E v        | 0x0000            |
+      | CHIP_LINE_OUT_VOL  | 0x002E v        | 0x1111 v           |
+      | CHIP_CLK_CTRL      | 0x0004 v        | 0x0004 v           |
+      | CHIP_I2S_CTRL      | 0x0006 v        | 0x0130 v           |
+      | CHIP_ADCDAC_CTRL   | 0x000E v        | 0x0000 v           |
       | CHIP_DAC_VOL       | 0x0010 v        | 0x3C3C v          |
 
 
