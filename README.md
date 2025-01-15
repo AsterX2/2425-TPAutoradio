@@ -324,8 +324,8 @@ Une fois la configuration de l'I2C laissée par défaut, on s'attaque à celle d
 
 ### 3.2 Configuration du codec par l'I2C
 
-1. Le signal MCL est observé sur la figure suivante à l'oscilloscope 
-![mclk](assets/signal mclk_scope_0.png))
+1. Le signal MCLK est observé sur la figure suivante à l'oscilloscope, la fréquence est bien de 12.3 MHz (proche des 12.235294 MHz configurés) ce qui valide la configuration du signal d'horloge.
+![mclk](https://github.com/AsterX2/2425-TPAutoradio/blob/main/assets/signal%20mclk_scope__.png)
 
 2. On récupère la valeur par l'I2C contenue dans le registre CHIP_ID. C'est bien la bonne valeur attendue.
 
@@ -335,7 +335,7 @@ Une fois la configuration de l'I2C laissée par défaut, on s'attaque à celle d
 
    
 
-5. Le tableau donnant la valeurs à assigné dans les registres est le suivant :
+5. Le tableau donnant les valeurs à assigné dans les registres est le suivant :
 
    1. | Nom du Registre    | ADR du registre | Valeur à assigner |
       | ------------------ | --------------- | ----------------- |
