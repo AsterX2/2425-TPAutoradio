@@ -147,6 +147,8 @@ Peu importe l'opération, lecture ou écriture, il faut mettre à 0 la broche CS
 En fin de transmission il faut remettre à 1 la broche CS.
 
 ### 2.2 Tests
+On teste d'allumer les leds. 
+On obtient le chenillard suivant
 
 ![WhatsAppVideo2024-12-09at22.20.27-ezgif.com-video-to-gif-converter](./assets/WhatsAppVideo2024-12-09at22.20.27-ezgif.com-video-to-gif-converter.gif)
 
@@ -378,7 +380,10 @@ Write CHIP_DIG_POWER **0x0073**
 
 On appelle l'init dans le main pour configurer ces registres.
 
+![registre](https://github.com/AsterX2/2425-TPAutoradio/blob/main/assets/configuration_registres.png))
 
+
+On visualise dans la figure ci-dessus la configuration des registres.
 
 
 
@@ -419,7 +424,7 @@ En remplaçant `R * C` par sa relation avec la fréquence de coupure `fc = 1 / (
 
 R * C = 1 / (2 * pi * fc)
 
-Les coefficients deviennent :
+Les coefficients obtenus deviennent :
 
 - A = T / (1 / (2 * pi * fc) + T),
 - B = (1 / (2 * pi * fc)) / (1 / (2 * pi * fc) + T),
